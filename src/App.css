@@ -41,3 +41,6 @@
   box-shadow: inset 0px 0px 30px #c1effc;
 
 }
+.table{
+  --bs-table-bg:#eae3e300 !important;
+}

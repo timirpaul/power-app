@@ -114,7 +114,7 @@ const  SearchPolicy =()=> {
                           "border-radius": "8px",
                         }}
                       >
-                        <table className="table table-responsive table-striped">
+                        <table className="table table-responsive table-striped table-hover">
                           <thead style={{ position: "sticky", top: "0%" }}>
                             <tr
                               className="table-active table-head text-center"
@@ -130,7 +130,7 @@ const  SearchPolicy =()=> {
                               <th>View</th>
                             </tr>
                           </thead>
-
+<tbody>
                           {data?.map((item, i) => (
                             <tr className="text-center">
                               <td>{item.policy_id}</td>
@@ -143,6 +143,7 @@ const  SearchPolicy =()=> {
                               <td><div onClick={(e)=>handleViewItem(e,item)}><Eye/></div></td>
                             </tr>
                           ))}
+                          </tbody>
                         </table>
                       </div>
                      : "No Data"     }

@@ -17,7 +17,7 @@ const  LastFivePolicy = () => {
         try {
             setLoading(true)
             const res = await getApiData("/getL5CDC");
-            console.log(res?.data);
+            // console.log(res?.data);
             setData(res?.data);
         } catch (error) {
             console.log(error);
@@ -86,7 +86,7 @@ const  LastFivePolicy = () => {
                     >
                         
                             
-                      <table className="table table-responsive table-striped">
+                      <table className="table table-responsive table-striped table-hover">
                         {/* <thead style={{ position: "sticky", top: "0%" }}> */}
                        
                           <tr
@@ -100,7 +100,7 @@ const  LastFivePolicy = () => {
                             <th>View</th>
                           </tr>
                         {/* </thead> */}
-
+<tbody>
                         {data?.map((item, i) => (
                           <tr className="text-center">
                             <td>{item.policy_id}</td>
@@ -110,6 +110,7 @@ const  LastFivePolicy = () => {
                             <td><div onClick={(e)=>handleViewItem(e,item)}><Eye/></div></td>
                           </tr>
                         ))}
+                        </tbody>
                       </table>
                       </div>
 }
