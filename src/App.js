@@ -1,25 +1,32 @@
 import logo from './logo.svg';
+import {useEffect , useState} from "react"
 import './App.css';
+import { getApiData } from './apidata/api';
+import Sidebar from './Components/Slidebar';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Home from './Components/Home';
+import LastFivePolicy from './Components/LastFivePolicy';
+import SearchPolicy from './Components/SearchPolicy';
+import One from './Components/One';
+import Test from './Components/Test';
+import ViewPolicy from './Components/ViewPolicy';
+import Statistics from './Components/Statistics';
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+ return(
+  <BrowserRouter>
+  <Routes>
+    <Route exact path="/" element={<Home/>}/>
+    <Route exact path="/lastfivepolicy" element={<LastFivePolicy/>}/>
+    <Route exact path="/SearchPolicy" element={<SearchPolicy/>}/>
+    <Route exact path="/viewpolicy" element={<ViewPolicy/>}/>
+    <Route exact path="/Statistics" element={<Statistics/>}/>
+    <Route exact path="/one" element={<Test/>}/>
+  </Routes>
+  </BrowserRouter>
+ )
 }
 
 export default App;

@@ -36,3 +36,8 @@
     transform: rotate(360deg);
   }
 }
+
+.head-col{
+  box-shadow: inset 0px 0px 30px #c1effc;
+
+}
