@@ -2,18 +2,27 @@ import React, { useEffect, useState } from "react";
 import { getApiData } from "../apidata/api";
 import { Loader } from "react-feather";
 import One from "./One";
-import { Chart } from "react-google-charts";
-import { PieChart, Pie } from 'recharts';
+// import { Pie } from 'react-chartjs-2';
+import {
+  PieChart,
+  Pie,
+  Cell,
+  Legend,
+  Tooltip,
+  LabelList,
+} from "recharts";
 
 const Statistics = () => {
+
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState();
+  const [newdata, setnewdata] = useState();
 
   const apidata1 = async () => {
     try {
       setLoading(true);
       const res = await getApiData("/getOpStat");
-      console.log(res?.data);
+    //   console.log(res?.data);
       setData(res?.data);
     } catch (error) {
       console.log(error);
@@ -25,11 +34,26 @@ const Statistics = () => {
   useEffect(() => {
     apidata1();
   }, []);
+  useEffect(() => {
+    calculation(data);
+  }, [data]);
 
-    const options = {
-      title: "My Daily Activities",
-    };
-  console.log(data);
+  const COLORS = ["#FF0000", "#0000FF"];
+  const calculation = (data) => {
+    try {
+      const total = data?.reduce((n, { count }) => n + count, 0);
+      const newData = data?.map((item, i) => {
+        const per = (item.count / total) * 100;
+        //   console.log(per.toFixed());
+        return { ...item, per: per.toFixed() + "%"};
+      });
+      setnewdata(newData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  //   console.log(newdata);
+
   return (
     <>
       <One
@@ -42,15 +66,43 @@ const Statistics = () => {
               </div>
             ) : (
               <>
-              {data?.map((item,i)=>(
-                <>
-                <h5>op:{item.OP}</h5>
-                <h5>Count:{item.count}</h5>
-                </>
-              ))}
-                <PieChart >
-            <Pie data={data} dataKey="students" outerRadius={250} fill="green" />
-        </PieChart>
+                {newdata && (
+                  <div className="text-center" style={{ "background-color": "rgb(104 98 98 / 67%)"}}>
+                    <h2>Distribution Of MongoDB CDC Operation</h2>
+                    <div className="d-flex justify-content-center">
+
+                    <PieChart width={400} height={400}  >
+                      <Pie
+                    
+                        data={newdata}
+                        cx="50%"
+                        cy="50%"
+                        fill="#8884d8"
+                        //   paddingAngle={1}
+                        dataKey="count"
+                        nameKey="OP"
+                        label
+                      >
+                        <LabelList
+                          dataKey="per"
+                          position="insideTop"
+                        //   angle="45"
+                        />
+                        {data?.map((entry, index) => (
+                          <>
+                            <Cell
+                              key={`cell-${index}`}
+                              fill={COLORS[index % COLORS.length]}
+                            />
+                          </>
+                        ))}
+                      </Pie>
+                      <Tooltip />
+                      <Legend />
+                    </PieChart>
+                    </div>
+                  </div>
+                )}
               </>
             )}
           </>

@@ -33,7 +33,7 @@ const Sidebar = ({name}) => {
             to="/lastfivepolicy"
             style={{ textDecoration: "none", color: "inherit" }}
           >
-            <h5>Last Five Policy</h5>
+            <h5>Last 5 Txns</h5>
           </Link>
         </div>
 

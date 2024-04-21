@@ -67,7 +67,7 @@ const  LastFivePolicy = () => {
                 <div 
                 // className="d-flex justify-content-center"
                 > */}
-                <One  name="Last Five Policy" Children={
+                <One  name="Last 5 Txns" Children={
 
 
        <>         
